@@ -61,7 +61,7 @@
         text-transform: uppercase;
         font-size: 12px;
         letter-spacing: 2px;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
       }
 
       .advice-btn {
@@ -108,6 +108,14 @@
         cursor: pointer;
       }
 
+      /* utility */
+      .error {
+        background-color: #fa7878;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        border-radius: 10px;
+        display: flex;
+      }
       /* media queries */
       @media (min-width: 768px) {
         .container {
@@ -130,7 +138,7 @@
       <aside class="time">
         <small>Today : 20 febuary</small>
       </aside>
-      <form>
+      <form class="form">
         <i class="fa fa-search" aria-hidden="true"></i>
         <input type="search" name="search" id="search" />
       </form>
