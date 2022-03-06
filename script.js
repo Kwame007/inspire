@@ -7,7 +7,7 @@ const Request = class {
     fetch(url)
       .then((response) => response.json())
       .then((data) => console.log(data.slip.advice))
-      .catch((error) => console.log("error occured"));
+      .catch((error) => console.log(error.message));
   }
 };
 
