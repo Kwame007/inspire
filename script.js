@@ -11,6 +11,9 @@ const Request = class {
 
 // UI class
 const UI = class extends Request {
+  // protected variable {avialable on all instances}
+  _totalResults;
+
   constructor() {
     super();
 
@@ -53,6 +56,7 @@ const UI = class extends Request {
     // prevent default form submit
     event.preventDefault();
 
+    // select input
     let searchTerm = document.querySelector("#search");
 
     // set string value equals input value
@@ -61,26 +65,61 @@ const UI = class extends Request {
     // clear input field
     searchTerm.value = "";
 
+    // make request using search query
     this.get(`https://api.adviceslip.com/advice/search/${string}`)
       .then((data) => {
-        console.log(data);
+        // get total results
+        const { total_results } = data;
 
-        const { total_results: totalResults } = data;
-        let randomIndex = Math.floor(Math.random() * (+totalResults - 0) + 0);
+        // assign total_results value to _totalResults
+        this._totalResults = total_results;
 
-        const slips = function (...data) {
-          data.forEach((res) => {
-            // show in html
-            document.querySelector(".advice-title span").textContent =
-              res[randomIndex].id;
-            document.querySelector(
-              ".advice-text"
-            ).textContent = ` " ${res[randomIndex].advice} "`;
-          });
-        };
-        slips(data.slips);
+        // check if data.message is true
+        if (data?.message) {
+          throw new Error(data.message.text);
+        } else {
+          // get advice based on random index
+          this.slips(data.slips);
+        }
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => {
+        // show error
+        this.showError(`${error}`, "error");
+        console.log(error);
+      });
+  }
+
+  //slips method
+  slips(...data) {
+    // generate random number (btn 0 & and totalResults)
+    let randomIndex = Math.floor(Math.random() * (+this._totalResults - 0) + 0);
+
+    // loop through results
+    data.forEach((res) => {
+      // show in html
+
+      // update advice id
+      document.querySelector(".advice-title span").textContent =
+        res[randomIndex].id;
+
+      // update advice text
+      document.querySelector(
+        ".advice-text"
+      ).textContent = ` " ${res[randomIndex].advice} "`;
+    });
+  }
+
+  // show error
+  showError(message, className) {
+    setTimeout(() => {
+      document.querySelector(".error").remove();
+    }, 3000);
+    return document
+      .querySelector("main")
+      .insertAdjacentHTML(
+        "afterbegin",
+        `<small class='${className}'>${message}</small>`
+      );
   }
 };
 
