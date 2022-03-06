@@ -12,6 +12,12 @@
       rel="stylesheet"
     />
 
+    <!-- fontawesome -->
+    <script
+      src="https://kit.fontawesome.com/aa723ab120.js"
+      crossorigin="anonymous"
+    ></script>
+
     <link
       rel="icon"
       type="image/png"
@@ -34,7 +40,7 @@
       }
       .container {
         max-width: 100%;
-        margin: 100px 1rem;
+        margin: 50px 1rem;
       }
 
       main {
@@ -44,9 +50,6 @@
         position: relative;
       }
       main article {
-        /* display: flex;
-        flex-direction: column;
-        justify-content: center; */
         text-align: center;
       }
       main article p {
@@ -65,11 +68,44 @@
         position: relative;
         top: 50px;
         padding: 1.2rem;
-        /* max-width: 100px; */
         margin: auto;
         border-radius: 50px;
         border: none;
         background-color: hsl(150, 100%, 66%);
+      }
+
+      /* header */
+      header {
+        background-color: hsl(216, 21%, 24%);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-radius: 10px;
+      }
+      /* search */
+      #search {
+        border: none;
+        height: 36px;
+        width: 36px;
+        border-radius: 18px;
+        background-color: hsl(193, 38%, 86%);
+        cursor: pointer;
+        transition: all 300ms;
+      }
+      #search:focus {
+        padding: 0 35px;
+        width: 150px;
+        outline: none;
+      }
+      header form,
+      header form i {
+        position: relative;
+      }
+      header form i {
+        left: 30px;
+        color: #00c897;
+        cursor: pointer;
       }
 
       /* media queries */
@@ -77,6 +113,9 @@
         .container {
           max-width: 550px;
           margin: 100px auto;
+        }
+        #search:focus {
+          width: 200px;
         }
       }
     </style>
@@ -87,6 +126,15 @@
     <title>Frontend Mentor | Advice generator app</title>
   </head>
   <body>
+    <header class="container">
+      <aside class="time">
+        <small>Today : 20 febuary</small>
+      </aside>
+      <form>
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <input type="search" name="search" id="search" />
+      </form>
+    </header>
     <main class="container">
       <article class="advice-wrap">
         <div class="advice-title">Advice #<span></span></div>
