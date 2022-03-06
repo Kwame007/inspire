@@ -29,6 +29,9 @@ const UI = class extends Request {
     document
       .querySelector(".form")
       .addEventListener("submit", this._getAdviceOnSubmit.bind(this));
+
+    // get current date
+    this.getDate();
   }
 
   // fetch random advice
@@ -43,7 +46,7 @@ const UI = class extends Request {
         document.querySelector(".advice-title span").textContent = id;
         document.querySelector(".advice-text").textContent = ` " ${advice} "`;
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => this.showError(error, "error"));
   }
 
   // fetch random advice on button click
@@ -120,6 +123,20 @@ const UI = class extends Request {
         "afterbegin",
         `<small class='${className}'>${message}</small>`
       );
+  }
+
+  // get date using intl.DateTimeFormat
+  getDate() {
+    const today = new Date();
+    const intlDate = new Intl.DateTimeFormat(navigator.language, {
+      day: "numeric",
+      month: "long",
+      year: "2-digit",
+    }).format(today);
+
+    return (document.querySelector(
+      ".time small"
+    ).textContent = `⏰ :  ${intlDate}`);
   }
 };
 
